@@ -34,10 +34,13 @@ def display_page(pathname):
         return iris_layout()
     elif pathname =="/iris_clustering":
         return iris_clustering()
+    elif pathname == "/iris_cnn":
+        return iris_cnn()
     elif pathname == '/mnist_home':
         return mnist_layout
     else:
         return home_layout
+
 
 def var_info(col_name, num_array):
     cur_min = np.min(num_array)
@@ -89,8 +92,21 @@ def box_plotting(df):
         l=20, r=20, b=30, t=30, pad=4),)
     return go.Figure(data, layout)
 
-### Iris Clustering
 
+### Iris CNN
+def iris_cnn():
+    return html.Div(children=[
+            html.Div([
+
+                html.Div(children = [
+                                    html.H1("CNN Description"),html.Br()]
+                        ),
+                html.Img(src = './assets/cnn.png'),
+                html.H3("In deep learning, a convolutional neural network is a class of deep neural networks, most commonly applied to analyzing visual imagery....")
+                ], id = "content1"),
+            html.Div(html.H1("Result of CNN"), id = "content5")
+    ], className = "content_main")
+### Iris Clustering
 def iris_layout():
     df = pd.read_csv('./data/iris.csv')
     return html.Div([
@@ -139,7 +155,7 @@ def iris_clustering():
                 ],
                 value='3'
             ),
-            dcc.Graph(id="output-container")
+            dcc.Graph(id="output-container", style = {"height" : "60vh", "width" : "80vh"})
         ], id = "content5")
 
     ], className = "content_main")
